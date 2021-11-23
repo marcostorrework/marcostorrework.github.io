@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
+  <link rel="stylesheet" href="style.css">
+
   <!-- Import Vega & Vega-Lite (does not have to be from CDN) -->
   <script src="https://d3js.org/d3.v7.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
@@ -11,9 +13,30 @@
     function change_category(cat) {
       if (cat.substr(0,3)=='cat') {
         chart_file = 'dashboard-' + cat + '-spec.json'
+
+        cat_desc = {
+          "cat0": 'Agriculture & Natural Resources',
+          "cat1": 'Arts',
+          "cat2": 'Biology & Life Science',
+          "cat3": 'Business',
+          "cat4": 'Communications & Journalism',
+          "cat5": 'Computers & Mathematics',
+          "cat6": 'Education',
+          "cat7": 'Engineering',
+          "cat8": 'Health',
+          "cat9": 'Humanities & Liberal Arts',
+          "cat10": 'Industrial Arts & Consumer Services',
+          "cat11": 'Interdisciplinary',
+          "cat12": 'Law & Public Policy',
+          "cat13": 'Physical Sciences',
+          "cat14": 'Psychology & Social Work',
+          "cat15": 'Social Science'
+        }
+        document.getElementById('page_title').textContent = 'Major category: '+cat_desc[cat]
       }
       else {
         chart_file='dashboard-spec.json'
+        document.getElementById('page_title').textContent = 'Overview of categories'
       }
       var spec = chart_file
       vegaEmbed('#vis', spec)
@@ -21,7 +44,9 @@
   </script>
 </head>
 <body>
-  <h1>College Majors by Category</h1>
+  <h1>Income and employment by major</h1>
+  <h3>Data from graduates 2019</h3>
+  <h2 id="page_title">Overview of categories</h2>
 
   <form>
     Choose a major category:
