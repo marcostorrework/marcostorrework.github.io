@@ -7,15 +7,55 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@4.8.1"></script>
   <!-- Import vega-embed -->
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
+  <script>
+    function change_category(cat) {
+      if (cat.substr(0,3)=='cat') {
+        chart_file = 'dashboard-' + cat + '-spec.json'
+      }
+      else {
+        chart_file='dashboard-spec.json'
+      }
+      var spec = chart_file
+      vegaEmbed('#vis', spec)
+    }
+  </script>
 </head>
 <body>
   <h1>College Majors by Category</h1>
+
+  <form>
+    Choose a major category:
+    <select id="dropdown_cat" onchange="change_category(document.getElementById('dropdown_cat').selectedOptions[0].value)">
+      <option value="all">Overview of categories</option>
+      <option value="cat0">Agriculture & Natural Resources</option>
+      <option value="cat1">Arts</option>
+      <option value="cat2">Biology & Life Science</option>
+      <option value="cat3">Business</option>
+      <option value="cat4">Communications & Journalism</option>
+      <option value="cat5">Computers & Mathematics</option>
+      <option value="cat6">Education</option>
+      <option value="cat7">Engineering</option>
+      <option value="cat8">Health</option>
+      <option value="cat9">Humanities & Liberal Arts</option>
+      <option value="cat10">Industrial Arts & Consumer Services</option>
+      <option value="cat11">Interdisciplinary</option>
+      <option value="cat12">Law & Public Policy</option>
+      <option value="cat13">Physical Sciences</option>
+      <option value="cat14">Psychology & Social Work</option>
+      <option value="cat15">Social Science</option>
+    </select>
+  </form>
+
 <div class="" id="vis"></div>
+
+<div>
+<button type="button" onclick="change_category('all')">Back to overview</button>
+</div>
 <script type="text/javascript">
   var spec = 'dashboard-spec.json';
   vegaEmbed('#vis', spec).then(function(result) {
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
-  }).catch(console.error);
+  })
 </script>
 </body>
 </html> 
