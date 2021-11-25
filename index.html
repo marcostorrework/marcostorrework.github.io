@@ -11,35 +11,37 @@
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
   <script>
     function change_category(cat) {
-      if (cat.substr(0,3)=='cat') {
-        chart_file = 'dashboard-' + cat + '-spec.json'
+      if (!isNaN(cat)) {  // cat contains a number
+        chart_file = 'dashboard-cat' + cat + '-spec.json'
+        pie_file = 'dashboard-pie' + cat + '-spec.json'
 
         cat_desc = {
-          "cat0": 'Agriculture & Natural Resources',
-          "cat1": 'Arts',
-          "cat2": 'Biology & Life Science',
-          "cat3": 'Business',
-          "cat4": 'Communications & Journalism',
-          "cat5": 'Computers & Mathematics',
-          "cat6": 'Education',
-          "cat7": 'Engineering',
-          "cat8": 'Health',
-          "cat9": 'Humanities & Liberal Arts',
-          "cat10": 'Industrial Arts & Consumer Services',
-          "cat11": 'Interdisciplinary',
-          "cat12": 'Law & Public Policy',
-          "cat13": 'Physical Sciences',
-          "cat14": 'Psychology & Social Work',
-          "cat15": 'Social Science'
+          "0": 'Agriculture & Natural Resources',
+          "1": 'Arts',
+          "2": 'Biology & Life Science',
+          "3": 'Business',
+          "4": 'Communications & Journalism',
+          "5": 'Computers & Mathematics',
+          "6": 'Education',
+          "7": 'Engineering',
+          "8": 'Health',
+          "9": 'Humanities & Liberal Arts',
+          "10": 'Industrial Arts & Consumer Services',
+          "11": 'Interdisciplinary',
+          "12": 'Law & Public Policy',
+          "13": 'Physical Sciences',
+          "14": 'Psychology & Social Work',
+          "15": 'Social Science'
         }
         document.getElementById('page_title').textContent = 'Major category: '+cat_desc[cat]
       }
       else {
         chart_file='dashboard-spec.json'
+        pie_file=''
         document.getElementById('page_title').textContent = 'Overview of categories'
       }
-      var spec = chart_file
-      vegaEmbed('#vis', spec)
+      vegaEmbed('#vis', chart_file)
+      vegaEmbed('#pie', pie_file)
     }
   </script>
 </head>
@@ -52,32 +54,34 @@
     Choose a major category:
     <select id="dropdown_cat" onchange="change_category(document.getElementById('dropdown_cat').selectedOptions[0].value)">
       <option value="all">Overview of categories</option>
-      <option value="cat0">Agriculture & Natural Resources</option>
-      <option value="cat1">Arts</option>
-      <option value="cat2">Biology & Life Science</option>
-      <option value="cat3">Business</option>
-      <option value="cat4">Communications & Journalism</option>
-      <option value="cat5">Computers & Mathematics</option>
-      <option value="cat6">Education</option>
-      <option value="cat7">Engineering</option>
-      <option value="cat8">Health</option>
-      <option value="cat9">Humanities & Liberal Arts</option>
-      <option value="cat10">Industrial Arts & Consumer Services</option>
-      <option value="cat11">Interdisciplinary</option>
-      <option value="cat12">Law & Public Policy</option>
-      <option value="cat13">Physical Sciences</option>
-      <option value="cat14">Psychology & Social Work</option>
-      <option value="cat15">Social Science</option>
+      <option value="0">Agriculture & Natural Resources</option>
+      <option value="1">Arts</option>
+      <option value="2">Biology & Life Science</option>
+      <option value="3">Business</option>
+      <option value="4">Communications & Journalism</option>
+      <option value="5">Computers & Mathematics</option>
+      <option value="6">Education</option>
+      <option value="7">Engineering</option>
+      <option value="8">Health</option>
+      <option value="9">Humanities & Liberal Arts</option>
+      <option value="10">Industrial Arts & Consumer Services</option>
+      <option value="11">Interdisciplinary</option>
+      <option value="12">Law & Public Policy</option>
+      <option value="13">Physical Sciences</option>
+      <option value="14">Psychology & Social Work</option>
+      <option value="15">Social Science</option>
     </select>
   </form>
 
 <div class="" id="vis"></div>
 
+<div class="" id="pie"></div>
+
 <div>
 <button type="button" onclick="change_category('all')">Back to overview</button>
 </div>
 <script type="text/javascript">
-  var spec = 'dashboard-spec.json';
+  var spec = 'dashboard-pie10.json';
   vegaEmbed('#vis', spec).then(function(result) {
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
   })
