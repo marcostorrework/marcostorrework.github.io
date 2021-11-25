@@ -13,7 +13,6 @@
     function change_category(cat) {
       if (!isNaN(cat)) {  // cat contains a number
         chart_file = 'dashboard-cat' + cat + '-spec.json'
-        pie_file = 'dashboard-pie' + cat + '-spec.json'
 
         cat_desc = {
           "0": 'Agriculture & Natural Resources',
@@ -33,15 +32,24 @@
           "14": 'Psychology & Social Work',
           "15": 'Social Science'
         }
-        document.getElementById('page_title').textContent = 'Major category: '+cat_desc[cat]
+
+        // Display pie chart for category
+        document.getElementById('pie').innerHTML = "";
+        img = document.createElement("img");
+        img.src = 'images/pie' + cat + '.png'
+        document.getElementById('pie').appendChild(img)
+
+        // Update page title according to category
+        textContent = 'Major category: '+cat_desc[cat]
       }
       else {
         chart_file='dashboard-spec.json'
-        pie_file=''
+        document.getElementById('pie').innerHTML = "";
+
+        // Update page title
         document.getElementById('page_title').textContent = 'Overview of categories'
       }
       vegaEmbed('#vis', chart_file)
-      vegaEmbed('#pie', pie_file)
     }
   </script>
 </head>
@@ -73,15 +81,16 @@
     </select>
   </form>
 
-<div class="" id="vis"></div>
+<div id="vis"></div>
 
-<div class="" id="pie"></div>
+<div id="pie" style="padding-top: 5%; padding-bottom: 5%;"></div>
 
 <div>
 <button type="button" onclick="change_category('all')">Back to overview</button>
 </div>
+
 <script type="text/javascript">
-  var spec = 'dashboard-pie10.json';
+  var spec = 'dashboard-spec.json';
   vegaEmbed('#vis', spec).then(function(result) {
     // Access the Vega view instance (https://vega.github.io/vega/docs/api/view/) as result.view
   })
